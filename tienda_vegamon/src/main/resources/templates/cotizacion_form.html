@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Vegamon | E-Commerce</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+  <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" type="module"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+ 
+ <style type="text/css">
+	
+	#inner {
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 50%;
+    background: black;
+    border-radius: 10px;
+    padding: 40px;
+    }
+
+
+
+@media screen and (max-width: 480px) {
+  #inner {
+    width: calc(100% - 80px);
+  }
+}
+	
+select option:hover{
+background : #BB2739 ;
+cursor:pointer;
+}
+	
+	
+
+	.loader-page {
+	text:"Cargando..";	
+	position: fixed;
+    z-index: 25000;
+    background: rgb(255, 255, 255);
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:all .300s ease;
+  }
+  .loader-page::before {
+    content: "";
+    position: absolute;
+    border: 2px solid rgba(189, 37, 56);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border-left: 4px solid rgba(189, 37, 56);
+    border-top: 4px solid rgba(189, 37, 56);
+    animation: rotarload 2s linear infinite;
+    transform: rotate(0deg);
+  }
+
+
+  @keyframes rotarload {
+      0%   {transform: rotate(0deg)}
+      100% {transform: rotate(360deg)}
+
+	  
+  }
+
+  
+  .loader-page::after {
+    content: "";
+    position: absolute;
+    border: 2px solid rgba(189, 37, 56);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border-left: 2px solid rgba(189, 37, 56);
+    border-top: 2px solid rgba(189, 37, 56);
+    animation: rotarload 2s ease-out infinite;
+    transform: rotate(0deg);
+	
+  }
+</style>
+</head>
+<body>
+
+<div class="loader-page">Cargando...</div>
+
+<div class="wrapper">
+  <center>
+    <h1>¡Vamos a comenzar!</h1>
+  </center>
+
+  <!-- Indicador de pasos -->
+  <br><br>
+  <div class="header">
+		<ul>
+			<li class="active form_1_progessbar">
+				<div>
+					<p>1</p>
+				</div>
+			</li>
+			<li class="form_2_progessbar">
+				<div>
+					<p>2</p>
+				</div>
+			</li>
+			<li class="form_3_progessbar">
+				<div>
+					<p>3</p>
+				</div>
+			</li>
+			<li class="form_4_progessbar">
+				<div>
+					<p>4</p>
+				</div>
+			</li>
+			<li class="form_5_progessbar">
+				<div>
+					<p>5</p>
+				</div>
+			</li>
+			<li class="form_6_progessbar">
+				<div>
+					<p>6</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+<div class="form_wrap">
+ <div class="form_1 data_info">
+  <!-- FORMULARIO MULTIPASOS -->
+  
+	
+    <!-- Paso 1 -->
+   
+      	<h1 align="center" style="font-size: 14px">El mejor seguro de Auto espera por ti, llena tus datos para estar seguros que podemos ofrecerte la mejor protección.</h1>
+      
+      	<br>
+			<br>
+      <form name="primero" id="primero" th:object="${formLead}" method="post" onSubmit="return validar();">
+      	<div class="form_container">
+      <div class="input_wrap">
+        <label>Primer Nombre</label>
+        <input type="text" name="primernombre" id="primernombre" th:field="*{primernombre}" minlength="10"maxlength="100" onkeyup="mayus(this);" onkeypress="return soloLetras(event)" class="input" required />
+      </div>
+       <div class="input_wrap">
+        <label>Segundo Nombre</label>
+        <input type="text" name="segundonombre" id="segundonombre" th:field="*{segundonombre}" minlength="10"maxlength="100" onkeyup="mayus(this);" onkeypress="return soloLetras(event)" class="input" required />
+      </div>
+      <div class="input_wrap">
+        <label>Apellido Paterno</label>
+        <input type="text" name="apellidopaterno" id="apellidopaterno" th:field="*{apellidopaterno}" minlength="10"maxlength="100" onkeyup="mayus(this);" onkeypress="return soloLetras(event)" class="input" required />
+      </div>
+      <div class="input_wrap">
+        <label>Apellido Materno</label>
+        <input type="text" name="apellidomaterno" id="apellidomaterno" th:field="*{apellidomaterno}" minlength="10"maxlength="100" onkeyup="mayus(this);" onkeypress="return soloLetras(event)" class="input" required />
+      </div>
+      <div class="input_wrap">
+        <label>Teléfono</label>
+        <input type="text"  name="telefono" id="telefono" th:field="*{telefono}" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onblur="caracteres()" class="input" required />
+      </div>
+      <div class="input_wrap">
+        <label>Email</label>
+        <input type="email"  name="email" id="email" th:field="*{email}" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" onchange="validarEmail(this)" class="input" required />
+      </div>
+      </div>
+      	</form>
+    </div>
+
+    <!-- Paso 2 -->
+    <div class="form_2 data_info" style="display:none;">
+      <h2>Tu vehículo es de uso:</h2>
+      <form name="segundo" id="segundo" th:object="${formLead}" method="POST">
+      	<div class="form_container">
+					<div class="input_wrap">
+					      <img th:src="@{/images/caratula1.png}" name="imagen" id="imagen" width="200" height="200" />
+      <select th:field="*{usoVehiculo}" class="input" name="uno" id="uno">
+        <option value="">SELECCIONE</option>
+        <option value="PARTICULAR">Particular</option>
+        <option value="PUBLICO">Público</option>
+      </select>
+    </div>
+    	</div>
+			</form>
+		</div>
+	
+
+    <!-- Paso 3 -->
+    	< 
+    <div class="form_3 data_info" style="display:none;">
+      <h2>¿Tu vehículo tiene más de 15 años?</h2>
+	<form name="tercero" id="tercero" th:object="${formLead}" method="POST">
+      	<div class="form_container">
+					<div class="input_wrap">
+					<img src="@{/images/caratula6.png}" name="imagen" id="imagen" width="200" heigth="200"/>
+      <select th:field="*{antiguedad}" class="input"  name="uno1" id="uno1">
+        <option value="">SELECCIONE</option>
+        <option value="SI">Sí</option>
+        <option value="NO">No</option>
+      </select>
+    </div>
+    	</div>
+			</form>
+		</div>
+
+    <!-- Paso 4 -->
+    	<!--  
+    <div class="form_4 data_info" style="display:none;">
+      <h2>¿Tienes más de 70 años?</h2>
+      <select th:field="*{mayor70}" class="input">
+        <option value="" disabled selected>SELECCIONE</option>
+        <option value="SI">Sí</option>
+        <option value="NO">No</option>
+      </select>
+    </div>
+
+    <!-- Paso 5 -->
+    	<!--  
+    <div class="form_5 data_info" style="display:none;">
+      <h2>¿Tienes licencia vigente?</h2>
+      <select th:field="*{licencia}" class="input">
+        <option value="" disabled selected>SELECCIONE</option>
+        <option value="SI">Sí</option>
+        <option value="NO">No</option>
+      </select>
+    </div>
+
+    <!-- Paso 6 -->
+    	<!--  
+    <div class="form_6 data_info" style="display:none;">
+      <h2>¿Eres tú el conductor del vehículo?</h2>
+      <select th:field="*{esConductor}" class="input">
+        <option value="" disabled selected>SELECCIONE</option>
+        <option value="SI">Sí</option>
+        <option value="NO">No</option>
+      </select>
+    </div>
+
+    <!-- Botones -->
+    <div class="btns_wrap">
+      <div class="common_btns form_1_btns">
+        <button type="button" class="btn_next" onclick="valida()">Empezar<ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      	<div class="common_btns form_2_btns" style="display: none;">
+			<button type="button" class="btn_back"><span class="icon"><ion-icon name="arrow-back-sharp"></ion-icon></span>Atrás</button>
+			<button type="button" class="btn_next">Siguiente<span class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
+		
+		</div>
+		<div class="common_btns form_3_btns" style="display: none;">
+			<button type="button" class="btn_back"><span class="icon"><ion-icon name="arrow-back-sharp"></ion-icon></span>Atrás</button>
+			<button type="button" class="btn_next">Siguiente <span class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
+		
+		</div>
+
+		<div class="common_btns form_4_btns" style="display: none;">
+			<button type="button" class="btn_back"><span class="icon"><ion-icon name="arrow-back-sharp"></ion-icon></span>Atrás</button>
+			<button type="button" class="btn_next">Siguiente <span class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
+		
+			<!--<button type="button" class="btn_done">Done</button>-->
+		</div>
+
+		<div class="common_btns form_5_btns" style="display: none;">
+			<button type="button" class="btn_back"><span class="icon"><ion-icon name="arrow-back-sharp"></ion-icon></span>Atrás</button>
+			<button type="button" class="btn_next">Siguiente <span class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
+		
+			<!--<button type="button" class="btn_done">Done</button>-->
+		</div>
+
+		<div class="common_btns form_6_btns" style="display: none;">
+			<button type="button" class="btn_back"><span class="icon"><ion-icon name="arrow-back-sharp"></ion-icon></span>Atrás</button>
+			<!--<button type="button" class="btn_next">Siguiente<span class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>-->
+		
+			<button type="button" class="btn_done">Cotizar</button>
+		</div>
+
+  
+</div>
+</div>
+<script>
+    
+    
+    window.onload = function() {
+  var myInput = document.getElementById('primernombre');
+  myInput.onpaste = function(e) {
+    e.preventDefault();
+    alert("esta acción está prohibida");
+  }
+  
+  myInput.oncopy = function(e) {
+    e.preventDefault();
+    alert("esta acción está prohibida");
+  }
+  
+  
+   var myInput = document.getElementById('apellidomaterno');
+  myInput.onpaste = function(e) {
+    e.preventDefault();
+    alert("esta acción está prohibida");
+  }
+  
+  myInput.oncopy = function(e) {
+    e.preventDefault();
+    alert("esta acción está prohibida");
+  }
+  
+  
+  
+}
+    
+    
+    
+function mayus(e) {
+    e.value = e.value.toUpperCase();
+}
+</script>
+<script>
+  function soloNumeros(e) {
+    var key = e.keyCode || e.which,
+      tecla = String.fromCharCode(key).toLowerCase(),
+      letras = " áéíóúabcdefghijkñlmnñopqrstuvwxyz",
+      especiales = [8, 37, 39, 46],
+      tecla_especial = false;
+
+    for (var i in especiales) {
+      if (key == especiales[i]) {
+        tecla_especial = true;
+        break;
+      }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+      return false;
+    }
+  }
+</script>
+
+<script>
+  function soloLetras(e) {
+    var key = e.keyCode || e.which,
+      tecla = String.fromCharCode(key).toLowerCase(),
+      letras = " áéíóúabcdefghijkñlmnñopqrstuvwxyz",
+      especiales = [8, 37, 39, 46],
+      tecla_especial = false;
+
+    for (var i in especiales) {
+      if (key == especiales[i]) {
+        tecla_especial = true;
+        break;
+      }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+      return false;
+    }
+  }
+</script>
+
+<script type="text/javascript">
+        function validarEmail(elemento) {
+
+           
+
+
+            var texto = document.getElementById(elemento.id).value;
+            var regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+
+            if (!regex.test(texto)) {
+                alert("CORREO INVALIDO");
+                document.getElementById("email").value = "";
+                
+            } 
+
+        }
+    </script>
+<script>
+function caracteres(){
+var input = document.getElementById('telefono');
+///^((1558[0-9]{6})|(310[0-9]{9}))$/gm
+var expresion = /^[09][\d]{9}$/i;
+
+if (!expresion.test(input.value)){
+  alert("Debe ingresar un número válido");
+  document.getElementById("telefono").value = "";
+ 
+}
+
+
+if(input.value.length < 10 ) {
+alert('El número de teléfono no puede tener menos de 10 caracteres.');
+document.getElementById("telefono").value = "";
+}
+}
+</script>
+<script th:src="@{/js/scripts.js}">
+   var baseUrl = /*[[@{/}]]*/ '';
+</script>
+<script type="text/javascript">
+        $(window).on('load', function () {
+      setTimeout(function () {
+    $(".loader-page").css({visibility:"hidden",opacity:"0"})
+  }, 2000);
+     
+});
+    </script>
+</body>
+</html>
