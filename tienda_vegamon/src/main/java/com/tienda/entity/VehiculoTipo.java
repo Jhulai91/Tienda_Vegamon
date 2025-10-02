@@ -11,36 +11,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "leads")
+@Table(name = "vehiculo_tipo")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class FormLead {
+public class VehiculoTipo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id_lead;
+	private Integer id_tipo;
 	@Nonnull
-	private String primernombre;
-	@Nonnull
-	private String segundonombre;
-	@Nonnull
-	private String apellidopaterno;
-	@Nonnull
-	private String apellidomaterno;
-	@Nonnull
-	private String telefono;
-	@Nonnull
-	private String email;
-	
-	private String usoVehiculo;
-	
-	private String antiguedad;
-	
-	private String mayor70;
-	
-	private String licencia;
-	
-	private String esConductor;
-	
+	private String tipo_descripcion;
 }

@@ -177,9 +177,12 @@ cursor:pointer;
     <div class="form_2 data_info" style="display:none;">
       <h2>Tu vehículo es de uso:</h2>
       <form name="segundo" id="segundo" th:object="${formLead}" method="POST">
+      <input type="hidden" name="id_lead" id="id_lead" th:value="${formLead.id_lead}" />
       	<div class="form_container">
 					<div class="input_wrap">
+					<center>
 					      <img th:src="@{/images/caratula1.png}" name="imagen" id="imagen" width="200" height="200" />
+					      </center>
       <select th:field="*{usoVehiculo}" class="input" name="uno" id="uno">
         <option value="">SELECCIONE</option>
         <option value="PARTICULAR">Particular</option>
@@ -192,13 +195,16 @@ cursor:pointer;
 	
 
     <!-- Paso 3 -->
-    	< 
+    	
     <div class="form_3 data_info" style="display:none;">
       <h2>¿Tu vehículo tiene más de 15 años?</h2>
 	<form name="tercero" id="tercero" th:object="${formLead}" method="POST">
+	  <input type="hidden" name="id_lead1" id="id_lead1" th:value="${formLead.id_lead}" />
       	<div class="form_container">
 					<div class="input_wrap">
-					<img src="@{/images/caratula6.png}" name="imagen" id="imagen" width="200" heigth="200"/>
+					<center>
+					<img th:src="@{/images/caratula6.png}" name="imagen" id="imagen" width="200" heigth="200"/>
+					</center>
       <select th:field="*{antiguedad}" class="input"  name="uno1" id="uno1">
         <option value="">SELECCIONE</option>
         <option value="SI">Sí</option>
@@ -210,37 +216,67 @@ cursor:pointer;
 		</div>
 
     <!-- Paso 4 -->
-    	<!--  
+    	
     <div class="form_4 data_info" style="display:none;">
       <h2>¿Tienes más de 70 años?</h2>
-      <select th:field="*{mayor70}" class="input">
-        <option value="" disabled selected>SELECCIONE</option>
+      <form name="cuarto" id="cuarto" th:object="${formLead}" method="POST">
+       <input type="hidden" name="id_lead2" id="id_lead2" th:value="${formLead.id_lead}" />
+      <div class="form_container">
+      	<div class="input_wrap">
+					<center>	
+			<img th:src="@{/images/cararula3.png}" name="imagen" id="imagen" width="200" heigth="200">
+					</center>
+      <select th:field="*{mayor70}" class="input" name="uno2" id="uno2">
+        <option value="" >SELECCIONE</option>
         <option value="SI">Sí</option>
         <option value="NO">No</option>
       </select>
     </div>
+    </div>
+	</form>
+	</div>
 
     <!-- Paso 5 -->
-    	<!--  
+    	
     <div class="form_5 data_info" style="display:none;">
       <h2>¿Tienes licencia vigente?</h2>
-      <select th:field="*{licencia}" class="input">
+      <form name="quinto" id="quinto" th:object="${formLead}" method="POST">
+       <input type="hidden" name="id_lead4" id="id_lead4" th:value="${formLead.id_lead}" />
+        <div class="form_container">
+      	<div class="input_wrap">
+      	<center>	
+			<img th:src="@{/images/caratula7.png}" name="imagen" id="imagen" width="200" heigth="200">
+					</center>
+      <select th:field="*{licencia}" class="input" name="uno3" id="uno3">
         <option value="" disabled selected>SELECCIONE</option>
         <option value="SI">Sí</option>
         <option value="NO">No</option>
       </select>
     </div>
+    </div>
+	</form>
+	</div>
 
     <!-- Paso 6 -->
-    	<!--  
+      
     <div class="form_6 data_info" style="display:none;">
       <h2>¿Eres tú el conductor del vehículo?</h2>
-      <select th:field="*{esConductor}" class="input">
-        <option value="" disabled selected>SELECCIONE</option>
+      <form name="sexto" id="sexto" th:object="${formLead}" method="POST">
+        <input type="hidden" name="id_lead5" id="id_lead5" th:value="${formLead.id_lead}" />
+         <div class="form_container">
+      	<div class="input_wrap">
+      	<center>	
+			<img th:src="@{/images/volante.png}" name="imagen" id="imagen" width="200" heigth="200">
+					</center>
+      <select th:field="*{esConductor}" class="input" name="uno4" id="uno4">
+        <option value="" >SELECCIONE</option>
         <option value="SI">Sí</option>
         <option value="NO">No</option>
       </select>
     </div>
+     </div>
+	</form>
+	</div>
 
     <!-- Botones -->
     <div class="btns_wrap">

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cotiza tu seguro</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        .progress { height: 25px; }
+        .progress-bar { font-weight: bold; }
+    </style>
+</head>
+<body>
+<header>
+    <div style="background:#E8E8E8;width:100%;height:50px">
+        <h4 class="text-center">COTIZA TU SEGURO</h4>
+    </div>
+
+    <div class="container mt-4">
+        <h1>DATOS VEHÍCULO</h1>
+        <span>Asegúrate de contar con tu matrícula a mano</span>
+
+        <!-- Barra de progreso -->
+        <div class="progress mt-3">
+            <div class="progress-bar bg-danger" role="progressbar" style="width: 25%">
+                Paso 1 de 4
+            </div>
+        </div>
+
+        <form th:action="@{/vehiculo/guardar}" method="post" th:object="${vehiculoForm}" class="mt-4">
+            
+            <!-- Marca -->
+            <div class="mb-3">
+                <label class="form-label">Marca vehículo</label>
+                <select name="marcaId" class="form-select" required>
+                    <option value="">Seleccione una Marca...</option>
+                    <option th:each="m : ${marcas}" th:value="${m.marcaId}" th:text="${m.nombre}"></option>
+                </select>
+            </div>
+
+            <!-- Modelo (a cargar dinámicamente con JS) -->
+            <div class="mb-3">
+                <label class="form-label">Modelo vehículo</label>
+                <select th:field="*{modeloId}" class="form-select" required id="modeloSelect">
+                    <option value="">Seleccione un Modelo...</option>
+                </select>
+            </div>
+
+            <!-- Tipo -->
+            <div class="mb-3">
+                <label class="form-label">Tipo de vehículo</label>
+                <select th:field="*{tipo}" class="form-select" required>
+                    <option value="">Seleccione un tipo...</option>
+                    <option th:each="t : ${tipos}" th:value="${t.descripcion}" th:text="${t.descripcion}"></option>
+                </select>
+            </div>
+
+            <!-- Color -->
+            <div class="mb-3">
+                <label class="form-label">Color de vehículo</label>
+                <select th:field="*{color}" class="form-select" required>
+                    <option value="">Seleccione un color...</option>
+                    <option th:each="c : ${colores}" th:value="${c.descripcion}" th:text="${c.descripcion}"></option>
+                </select>
+            </div>
+
+            <!-- Año -->
+            <div class="mb-3">
+                <label class="form-label">Año de vehículo</label>
+                <input type="number" th:field="*{anio}" class="form-control" required>
+            </div>
+
+            <!-- Valor vehículo -->
+            <div class="mb-3">
+                <label class="form-label">Valor del vehículo</label>
+                <input type="number" th:field="*{valorVehiculo}" class="form-control" required>
+            </div>
+
+            <!-- Extras -->
+            <div class="mb-3">
+                <label class="form-label">Extras</label>
+                <div th:each="e : ${extras}" class="form-check">
+                    <input type="checkbox" th:field="*{extrasSeleccionados}" th:value="${e.id}" class="form-check-input" id="extra-[[${e.id}]]">
+                    <label th:for="'extra-' + ${e.id}" th:text="${e.nombre}"></label>
+                </div>
+            </div>
+
+            <!-- Valor Extras -->
+            <div class="mb-3">
+                <label class="form-label">Valor Extras</label>
+                <input type="number" th:field="*{valorExtras}" class="form-control">
+            </div>
+
+            <!-- Botón -->
+            <button type="submit" class="btn btn-danger">Siguiente</button>
+        </form>
+    </div>
+</header>
+
+<script>
+    // Aquí puedes añadir JS para cargar modelos dependiendo de la marca
+    document.querySelector("select[name='marcaId']").addEventListener("change", function() {
+        const marcaId = this.value;
+        const modeloSelect = document.getElementById("modeloSelect");
+        modeloSelect.innerHTML = "<option value=''>Cargando...</option>";
+
+        fetch("/api/modelos?marcaId=" + marcaId)
+            .then(res => res.json())
+            .then(data => {
+                modeloSelect.innerHTML = "<option value=''>Seleccione un Modelo...</option>";
+                data.forEach(m => {
+                    const opt = document.createElement("option");
+                    opt.value = m.id;
+                    opt.textContent = m.nombre;
+                    modeloSelect.appendChild(opt);
+                });
+            });
+    });
+</script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 package com.tienda.entity;
 
+
+
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,36 +13,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "leads")
+@Table(name = "vehiculo_marca")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class FormLead {
+public class VehiculoMarca {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id_lead;
+	private Integer id_marca;
 	@Nonnull
-	private String primernombre;
-	@Nonnull
-	private String segundonombre;
-	@Nonnull
-	private String apellidopaterno;
-	@Nonnull
-	private String apellidomaterno;
-	@Nonnull
-	private String telefono;
-	@Nonnull
-	private String email;
+	private String marca;
 	
-	private String usoVehiculo;
-	
-	private String antiguedad;
-	
-	private String mayor70;
-	
-	private String licencia;
-	
-	private String esConductor;
 	
 }

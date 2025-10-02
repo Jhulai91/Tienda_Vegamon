@@ -10,37 +10,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
-@Table(name = "leads")
+@Table(name = "vehiculo_color")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+public class VehiculoColor {
 
-public class FormLead {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id_lead;
+	private Integer id_color;
 	@Nonnull
-	private String primernombre;
-	@Nonnull
-	private String segundonombre;
-	@Nonnull
-	private String apellidopaterno;
-	@Nonnull
-	private String apellidomaterno;
-	@Nonnull
-	private String telefono;
-	@Nonnull
-	private String email;
-	
-	private String usoVehiculo;
-	
-	private String antiguedad;
-	
-	private String mayor70;
-	
-	private String licencia;
-	
-	private String esConductor;
-	
+	private String color_descripcion;
 }
